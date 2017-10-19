@@ -27,7 +27,6 @@ if (isset($_GET['i'])) {
     <meta property="og:url" content="http://m.randomfox.ca" />
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="./script/script.js"></script>
 
 	<style>
 		body {
@@ -90,13 +89,14 @@ if (isset($_GET['i'])) {
 			display: inline-block;
 			border: 2px solid #ccc;
 			
-			background-image: url('https://randomfox.ca/images/1.jpg');
+			background-image: url('https://randomfox.ca/images/<?= $random_fox_index ?>.jpg');
 			background-repeat: no-repeat;
 			background-size: contain;
 		}
 
 		#fox-img {
 			height: 100%;
+			max-width: 100%;
 			position: relative;
 			z-index: 1;
 			visibility: hidden;
@@ -133,6 +133,20 @@ if (isset($_GET['i'])) {
 	function closeNav() {
 		document.getElementById("mySidenav").style.height = "0";
 	}
+
+	$('#fox-img').on('bestfit',function(){
+		var image = new Image();
+		image.src = $(this).attr('src');
+		var css;
+		var ratio=image.naturalWidth / image.naturalHeight;
+		var perfect_height=$(this).width() / ratio;
+		if (perfect_height<$(this).height()) {
+			css={height:perfect_height};
+		}
+		$(this).css(css);
+	}).on('load', function(){
+		$(this).trigger('bestfit');
+	}).trigger('bestfit');
 	</script>
      
 </body>
