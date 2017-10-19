@@ -1,0 +1,3 @@
+User-agent: * 
+Disallow: /.well-known/
+sitemap:https://m.randomfox.ca/sitemap.xml 
